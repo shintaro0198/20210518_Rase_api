@@ -55,9 +55,8 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        User::where('id',$user->id)->first()->delete();
         return response()->json([
-            'message' => 'Deleted successfully'
-        ], 200);
+            'data' => $user->id
+        ]);
     }
 }
