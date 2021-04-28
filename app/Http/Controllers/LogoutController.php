@@ -9,7 +9,7 @@ class LogoutController extends Controller
     public function logout()
     {
         return response()->json([
-            'auth' => true
+            'auth' => false
         ], 200);
     }
 }
