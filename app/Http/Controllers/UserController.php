@@ -55,7 +55,7 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        $item=User::where('id',$user->id)->first()->delete();
+        $item = User::where('id',$user->id)->first();
         return response()->json([
             'message' => 'Deleted successfully',
             'data' => $item
