@@ -16,11 +16,14 @@ class CreateRestaurantsTable extends Migration
         Schema::create('restaurants', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('location');
-            $table->string('genre');
+            $table->unsignedBigInteger('location_id');
+            $table->unsignedBigInteger('genre_id');
             $table->text('detail');
             $table->string('img');
-            $table->timestamps();
+            $table->dateTime('created_at')->nullable();
+            $table->dateTime('updated_at')->nullable();
+            $table->foreign('location_id')->references('id')->on('locations');
+            $table->foreign('genre_id')->references('id')->on('genres');
         });
     }
 

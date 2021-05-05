@@ -37,7 +37,7 @@ class ReserveController extends Controller
                 'message' => 'You already have the reservation'
             ]);
         } else {
-            $now = Carbon::now();
+            $now = Carbon::now()->format('Y/m/d H:i');
             $item = new Reservation;
             $item->user_id = $request->user_id;
             $item->restaurant_id = $request->restaurant_id;

@@ -16,8 +16,8 @@ class RestaurantsSeeder extends Seeder
     {
         $params = [
             'name' => 'restaurant',
-            'location' => 'location',
-            'genre' => 'genre',
+            'location_id' => '1',
+            'genre_id' => '1',
             'detail' => 'detail',
             'img'=>'img'
         ];
@@ -25,8 +25,8 @@ class RestaurantsSeeder extends Seeder
 
         $params = [
             'name' => 'restaurant',
-            'location' => 'location',
-            'genre' => 'genre',
+            'location_id' => '2',
+            'genre_id' => '2',
             'detail' => 'detail',
             'img' => 'img'
         ];
@@ -34,8 +34,8 @@ class RestaurantsSeeder extends Seeder
 
         $params = [
             'name' => 'restaurant',
-            'location' => 'location',
-            'genre' => 'genre',
+            'location_id' => '3',
+            'genre_id' => '3',
             'detail' => 'detail',
             'img' => 'img'
         ];

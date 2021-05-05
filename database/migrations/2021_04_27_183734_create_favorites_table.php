@@ -17,7 +17,8 @@ class CreateFavoritesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('restaurant_id');
-            $table->timestamps();
+            $table->dateTime('created_at')->nullable();
+            $table->dateTime('updated_at')->nullable();
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('restaurant_id')->references('id')->on('restaurants');
         });

@@ -28,6 +28,8 @@ class FavoriteController extends Controller
             $item->updated_at = $now;
             $item->save();
             return response()->json([
+                'data' => $item,
+                'now' => $now,
                 'message' => 'Posted successfuly'
             ], 200);
         }
