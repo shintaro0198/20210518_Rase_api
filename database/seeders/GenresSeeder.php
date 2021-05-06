@@ -17,7 +17,7 @@ class genresSeeder extends Seeder
     {
         $params = [
             'id' => 1,
-            'genre_name' =>'居酒屋',
+            'name' =>'居酒屋',
             'created_at' => Carbon::now()->format('Y/m/d H:i'),
             'updated_at' => Carbon::now()->format('Y/m/d H:i')
         ];
@@ -25,7 +25,7 @@ class genresSeeder extends Seeder
 
         $params = [
             'id' => 2,
-            'genre_name'=> 'イタリアン',
+            'name'=> 'イタリアン',
             'created_at' => Carbon::now()->format('Y/m/d H:i'),
             'updated_at' => Carbon::now()->format('Y/m/d H:i')
         ];
@@ -33,7 +33,7 @@ class genresSeeder extends Seeder
 
         $params = [
             'id' => 3,
-            'genre_name' => '寿司',
+            'name' => '寿司',
             'created_at' => Carbon::now()->format('Y/m/d H:i'),
             'updated_at' => Carbon::now()->format('Y/m/d H:i')
         ];
@@ -41,7 +41,7 @@ class genresSeeder extends Seeder
 
         $params = [
             'id' => 4,
-            'genre_name' => '焼肉',
+            'name' => '焼肉',
             'created_at' => Carbon::now()->format('Y/m/d H:i'),
             'updated_at' => Carbon::now()->format('Y/m/d H:i')
         ];
@@ -49,7 +49,7 @@ class genresSeeder extends Seeder
 
         $params = [
             'id' => 5,
-            'genre_name' => 'ラーメン',
+            'name' => 'ラーメン',
             'created_at' => Carbon::now()->format('Y/m/d H:i'),
             'updated_at' => Carbon::now()->format('Y/m/d H:i')
         ];
