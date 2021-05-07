@@ -55,8 +55,16 @@ class FavoriteController extends Controller
         $query->where('user_id', $request->user_id);
         $query->where('restaurant_id', $request->restaurant_id);
         $item = $query->first();
-        return response()->json([
-            'data' => $item
-        ]);
+        if($item){
+            return response()->json([
+                'data' => $item,
+                'favorite' => 'Available'
+            ]);
+        }   else{
+            return response()->json([
+                'favorite' => 'NotAvailable'
+            ]);
+        }
+        
     }
 }
