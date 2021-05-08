@@ -20,8 +20,8 @@ class RestaurantController extends Controller
         $now = Carbon::now()->format('Y/m/d H:i');
         $item = new Restaurant;
         $item->name = $request->name;
-        $item->location = $request->location;
-        $item->genre = $request->genre;
+        $item->location_id = $request->location_id;
+        $item->genre_id = $request->genre_id;
         $item->detail = $request->detail;
         $item->img = $request->img;
         $item->created_at = $now;
