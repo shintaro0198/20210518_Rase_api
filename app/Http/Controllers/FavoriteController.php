@@ -58,11 +58,11 @@ class FavoriteController extends Controller
         if($item){
             return response()->json([
                 'data' => $item,
-                'favorite' => 'available'
+                'favorite' => true
             ]);
         }   else{
             return response()->json([
-                'favorite' => 'notAvailable'
+                'favorite' => false
             ]);
         }
         
