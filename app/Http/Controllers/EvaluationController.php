@@ -56,7 +56,7 @@ class EvaluationController extends Controller
 
     public function show(Evaluation $evaluation)
     {
-        $item = Evaluation::where('user_id',$evaluation->id)->first();
+        $item = Evaluation::where('user_id',$evaluation->id)->get();
         if($item){
             return response()->json([
                 'data' => $item
