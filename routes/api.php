@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\EvaluationController;
+use App\Http\Controllers\EvaluationSortController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -39,3 +41,5 @@ Route::get('/reservesort/{user_id}',[ReserveSortController::class,'show']);
 Route::get('/reservesort',[ReserveSortController::class,'sort']);
 Route::apiResource('/location',LocationController::class);
 Route::apiResource('/genre',GenreController::class);
+Route::apiResource('/evaluation',EvaluationController::class);
+Route::get('/evaluationsort',[EvaluationSortController::class],'showRestaurant');
