@@ -25,8 +25,12 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request)
+    public function show(User $user)
     {
+        $item = User::where('id',$user->id)->first();
+        return response()->json([
+            'data' => $item
+        ]);
     }
 
     /**
