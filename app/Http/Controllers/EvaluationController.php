@@ -29,7 +29,6 @@ class EvaluationController extends Controller
         $query->where('user_id',$request->user_id);
         $query->where('restaurant_id',$request->restaurant_id);
         $item = $query->first();
-        $item = new Evaluation;
         if($item){
             $item->rating = $request->rating;
             $item->content = $request->content;
@@ -40,6 +39,7 @@ class EvaluationController extends Controller
                 'message' => 'Updated successfully'
             ]);
         }   else{
+            $item = new Evaluation;
             $item->user_id = $request->user_id;
             $item->restaurant_id = $request->restaurant_id;
             $item->rating = $request->rating;

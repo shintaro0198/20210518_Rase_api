@@ -18,7 +18,7 @@ class CreateEvaluationsTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('restaurant_id');
             $table->decimal('rating',2,1);
-            $table->text('content')->nullable()->change();
+            $table->text('content');
             $table->dateTime('created_at');
             $table->dateTime('updated_at');
             $table->foreign('user_id')->references('id')->on('users');
