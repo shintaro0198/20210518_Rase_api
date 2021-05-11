@@ -64,7 +64,7 @@ class EvaluationController extends Controller
         }   else{
             return response()->json([
                 'message' => 'Not found'
-            ]);
+            ],404);
         }
     }
 
