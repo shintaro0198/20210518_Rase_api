@@ -56,16 +56,7 @@ class EvaluationController extends Controller
 
     public function show(Evaluation $evaluation)
     {
-        $item = Evaluation::where('user_id',$evaluation->id)->get();
-        if($item){
-            return response()->json([
-                'data' => $item
-            ]);
-        }   else{
-            return response()->json([
-                'message' => 'Not found'
-            ],404);
-        }
+        
     }
 
     public function update(Request $request, Evaluation $evaluation)

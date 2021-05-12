@@ -42,4 +42,5 @@ Route::get('/reservesort',[ReserveSortController::class,'sort']);
 Route::apiResource('/location',LocationController::class);
 Route::apiResource('/genre',GenreController::class);
 Route::apiResource('/evaluation',EvaluationController::class);
-Route::get('/evaluationsort/{restaurant_id}',[EvaluationSortController::class,'showRestaurant']);
+Route::get('/evaluationsort/{restaurant_id}',[EvaluationSortController::class,'restaurantSort']);
+Route::get('/evaluationsort',[EvaluationSortController::class,'userSort']);
