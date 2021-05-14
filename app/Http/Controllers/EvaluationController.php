@@ -66,6 +66,7 @@ class EvaluationController extends Controller
         $item->rating = $request->rating;
         $item->content = $request->content;
         $item->updated_at = $now;
+        $item->save();
         if($item){
             return response()->json([
                 'data' => $item,
@@ -80,7 +81,7 @@ class EvaluationController extends Controller
 
     public function destroy(Evaluation $evaluation)
     {
-        $item = Evaluation::where('id',$evaluation->id)->first()->delete();
+        Evaluation::where('id',$evaluation->id)->first()->delete();
         return response()->json([
             'message' => 'Deleted successfully'
         ]);
