@@ -30,9 +30,16 @@ class courseMenuController extends Controller
     }
     public function show($restaurant_id){
         $item = CourseMenu::where('restaurant_id',$restaurant_id)->first();
-        return response()->json([
-            'data' => $item
-        ]);
+        if($item){
+            return response()->json([
+                'data' => $item
+            ]);
+        }   else{
+            return response()->json([
+                'message' => 'Not found'
+            ],200);
+        }
+        
     }
     public function update(Request $request,$id){
         $now = Carbon::now()->format('Y/m/d H:i');
