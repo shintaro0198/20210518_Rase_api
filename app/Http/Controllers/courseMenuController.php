@@ -35,8 +35,12 @@ class courseMenuController extends Controller
                 'data' => $item
             ]);
         }   else{
+            $item = [
+                'title' => null,
+                'detail' => null
+            ];
             return response()->json([
-                'data' => null,
+                'data' => $item,
                 'message' => 'Not found'
             ],200);
         }
