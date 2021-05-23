@@ -36,6 +36,7 @@ class courseMenuController extends Controller
             ]);
         }   else{
             return response()->json([
+                'data' => null,
                 'message' => 'Not found'
             ],200);
         }
