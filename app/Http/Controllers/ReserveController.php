@@ -86,8 +86,6 @@ class ReserveController extends Controller
         $now = Carbon::now()->format('Y/m/d H:i');
         $item = Reservation::where('id', $reservation->id)->first();
         if ($item) {
-            $item->user_id = $request->user_id;
-            $item->restaurant_id = $request->restaurant_id;
             $item->date = $request->date;
             $item->time = $request->time;
             $item->number = $request->number;
