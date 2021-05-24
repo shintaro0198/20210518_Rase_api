@@ -68,7 +68,10 @@ class ReserveController extends Controller
      */
     public function show(Reservation $reservation)
     {
-        
+        $item = Reservation::where('id',$reservation->id)->first();
+        return response()->json([
+            'data' => $item
+        ]);
     }
 
     /**
@@ -88,7 +91,6 @@ class ReserveController extends Controller
             $item->date = $request->date;
             $item->time = $request->time;
             $item->number = $request->number;
-            $item->created_at = $now;
             $item->updated_at = $now;
             $item->save();
             return response()->json([
