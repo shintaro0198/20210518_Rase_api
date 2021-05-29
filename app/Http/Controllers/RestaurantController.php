@@ -67,6 +67,22 @@ class RestaurantController extends Controller
     {
         $item = Restaurant::where('id', $restaurant->id)->first();
         if ($item) {
+            $item->location =
+            Location::where('id', $item->location_id)->first()->name;
+            $item->genre =
+            Genre::where('id', $item->genre_id)->first()->name;
+            $evaluations = Evaluation::where('restaurant_id', $item->id)->get();
+            if (empty($evaluation)) {
+                $sum = 0;
+                $count = 0;
+                foreach ($evaluations as $evaluation) {
+                    $sum += $evaluation->rating;
+                    $count += 1;
+                    $item->rating = $sum / $count;
+                }
+            } else {
+                $item->rating = 0;
+            }
             return response()->json([
                 'data' => $item,
                 'message' => 'Request is approved'
