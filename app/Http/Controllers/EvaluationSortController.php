@@ -28,6 +28,8 @@ class EvaluationSortController extends Controller
         if (!$items->isEmpty()) {
             foreach($items as $item){
                 $item->user_name = User::where('id',$item->user_id)->first()->name;
+                $item->showEdit = false;
+                $item->showVerification = false;
             }
             return response()->json([
                 'data' => $item
