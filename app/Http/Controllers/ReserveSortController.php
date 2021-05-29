@@ -16,7 +16,7 @@ class ReserveSortController extends Controller
                 $item->showCancel = false;
             }
             return response()->json([
-                'data' => $item
+                'data' => $items
             ]);
         } else {
             return response()->json([
