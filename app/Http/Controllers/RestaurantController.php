@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Favorite;
+use App\Models\Genre;
+use App\Models\Location;
 use App\Models\Map;
 use App\Models\Restaurant;
 use Carbon\Carbon;
@@ -12,8 +15,14 @@ class RestaurantController extends Controller
     public function index()
     {
         $items = Restaurant::all();
+        foreach($items as $item){
+            $item->location =
+            Location::where('id', $item->location_id)->first()->name;
+            $item->genre =
+            Genre::where('id', $item->genre_id)->first()->name;
+        }
         return response()->json([
-            'data' => $items
+            'data' => $items,
         ], 200);
     }
     public function store(Request $request)
