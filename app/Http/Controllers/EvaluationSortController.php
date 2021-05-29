@@ -32,7 +32,7 @@ class EvaluationSortController extends Controller
                 $item->showVerification = false;
             }
             return response()->json([
-                'data' => $item
+                'data' => $items
             ]);
         } else {
             return response()->json([
