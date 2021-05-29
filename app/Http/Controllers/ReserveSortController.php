@@ -9,10 +9,12 @@ use Illuminate\Http\Request;
 class ReserveSortController extends Controller
 {   
     public function show($user_id){
-        $item = Reservation::where('user_id', $user_id)->get();
-        if (!$item->isEmpty()) {
-            $item->restaurant_name = Restaurant::where('id',$item->restaurant_id);
-            $item->showCancel = false;
+        $items = Reservation::where('user_id', $user_id)->get();
+        if (!$items->isEmpty()) {
+            foreach($items as $item){
+                $item->restaurant_name = Restaurant::where('id',$item->restaurant_id)->first()->name;
+                $item->showCancel = false;
+            }
             return response()->json([
                 'data' => $item
             ]);
