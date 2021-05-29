@@ -55,6 +55,23 @@ class RestaurantController extends Controller
             ], 404);
         }
     }
+    public function put(Restaurant $restaurant,Request $request){
+        $item = Restaurant::where('id',$restaurant->id)->first();
+        $now = Carbon::now()->format('Y/m/d H:i');
+        $item->$item->name = $request->name;
+        $item->lat = $request->lat;
+        $item->ing = $request->ing;
+        $item->location_id = $request->location_id;
+        $item->genre_id = $request->genre_id;
+        $item->detail = $request->detail;
+        $item->img = $request->img;
+        $item->updated_at = $now;
+        $item->save();
+        return response()->json([
+            'data' => $item,
+            'message' => 'Updated successfully'
+        ]);
+    }
     public function destroy(Restaurant $restaurant)
     {
         Restaurant::where('id', $restaurant->id)->first()->delete();
