@@ -10,7 +10,7 @@ class EvaluationSortController extends Controller
 {
     public function restaurantSort($restaurant_id){
         $items = Evaluation::where('restaurant_id',$restaurant_id)->get();
-        if(!empty($items)){
+        if($items){
             foreach($items as $item){
                 $item->user_name = User::where('id',$item->user_id)->first()->name;
             }
@@ -25,7 +25,7 @@ class EvaluationSortController extends Controller
     }
     public function userSort(Request $request){
         $items = Evaluation::where('user_id', $request->user_id)->get();
-        if ($items) {
+        if (!$items->isEmpty()) {
             foreach($items as $item){
                 $item->user_name = User::where('id',$item->user_id)->first()->name;
             }
