@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Map;
 use App\Models\Restaurant;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -10,9 +11,9 @@ class RestaurantController extends Controller
 {
     public function index()
     {
-        $item = Restaurant::all();
+        $items = Restaurant::all();
         return response()->json([
-            'data' => $item
+            'data' => $items
         ], 200);
     }
     public function store(Request $request)
@@ -20,6 +21,8 @@ class RestaurantController extends Controller
         $now = Carbon::now()->format('Y/m/d H:i');
         $item = new Restaurant;
         $item->name = $request->name;
+        $item->lat = $request->lat;
+        $item->ing = $request->ing;
         $item->location_id = $request->location_id;
         $item->genre_id = $request->genre_id;
         $item->detail = $request->detail;
