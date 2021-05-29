@@ -3,13 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\Reservation;
+use App\Models\Restaurant;
 use Illuminate\Http\Request;
 
 class ReserveSortController extends Controller
 {   
     public function show($user_id){
         $item = Reservation::where('user_id', $user_id)->get();
-        if ($item) {
+        if (!$item->isEmpty()) {
+            $item->restaurant_name = Restaurant::where('id',$item->restaurant_id);
+            $item->showCancel = false;
             return response()->json([
                 'data' => $item
             ]);
