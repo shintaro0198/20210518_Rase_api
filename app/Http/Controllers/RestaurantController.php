@@ -55,7 +55,7 @@ class RestaurantController extends Controller
             ], 404);
         }
     }
-    public function put(Restaurant $restaurant,Request $request){
+    public function update(Restaurant $restaurant,Request $request){
         $item = Restaurant::where('id',$restaurant->id)->first();
         $now = Carbon::now()->format('Y/m/d H:i');
         $item->$item->name = $request->name;
