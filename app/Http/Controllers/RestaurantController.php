@@ -22,7 +22,7 @@ class RestaurantController extends Controller
             $item->genre =
             Genre::where('id', $item->genre_id)->first()->name;
             $evaluations = Evaluation::where('restaurant_id',$item->id)->get();
-            if($evaluations){
+            if(empty($evaluation)){
                 $sum = 0;
                 $count = 0;
                 foreach($evaluations as $evaluation){
