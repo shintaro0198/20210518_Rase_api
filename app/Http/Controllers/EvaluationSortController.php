@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Evaluation;
+use App\Models\Restaurant;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -28,6 +29,7 @@ class EvaluationSortController extends Controller
         if (!$items->isEmpty()) {
             foreach($items as $item){
                 $item->user_name = User::where('id',$item->user_id)->first()->name;
+                $item->restaurant_name = Restaurant::where('id',$item->restaurant_id)->first()->name;
                 $item->showEdit = false;
                 $item->showVerification = false;
             }
