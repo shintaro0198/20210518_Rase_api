@@ -2,10 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Evaluation;
 use App\Models\Favorite;
-use App\Models\Genre;
-use App\Models\Location;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -40,26 +37,8 @@ class FavoriteController extends Controller
 
     public function show($user_id)
     {
-        $items = Favorite::where('user_id', $user_id)->get();
-        if (!$items->isEmpty()) {
-            foreach($items as $item){
-                $item->location =
-                Location::where('id', $item->location_id)->first()->name;
-                $item->genre =
-                Genre::where('id', $item->genre_id)->first()->name;
-                $evaluations = Evaluation::where('restaurant_id', $item->id)->get();
-                if (empty($evaluation)) {
-                    $sum = 0;
-                    $count = 0;
-                    foreach ($evaluations as $evaluation) {
-                        $sum += $evaluation->rating;
-                        $count += 1;
-                        $item->rating = $sum / $count;
-                    }
-                } else {
-                    $item->rating = 0;
-                }
-            }
+        $item = Favorite::where('user_id', $user_id)->get();
+        if (!$item->isEmpty()) {
             return response()->json([
                 'data' => $item
             ], 200);
