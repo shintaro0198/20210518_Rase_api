@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Evaluation;
 use App\Models\Favorite;
 use App\Models\Genre;
 use App\Models\Location;
@@ -20,6 +21,18 @@ class RestaurantController extends Controller
             Location::where('id', $item->location_id)->first()->name;
             $item->genre =
             Genre::where('id', $item->genre_id)->first()->name;
+            $evaluations = Evaluation::where('restaurant_id',$item->id)->get();
+            if($evaluations){
+                $sum = 0;
+                $count = 0;
+                foreach($evaluations as $evaluation){
+                    $sum += $evaluation->rating;
+                    $count += 1;
+                    $item->rating = $sum/$count;
+                }
+            } else{
+                $item->rating = 0;
+            }
         }
         return response()->json([
             'data' => $items,
