@@ -17,6 +17,9 @@ use App\Http\Controllers\LocationController;
 use App\Http\Controllers\mapController;
 use App\Http\Controllers\ReserveController;
 use App\Http\Controllers\ReserveSortController;
+use App\Http\Controllers\ExpiredReservationController;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -44,6 +47,8 @@ Route::post('/favorite',[FavoriteController::class,'store']);
 Route::apiResource('/reservation', ReserveController::class);
 Route::get('/reservesort/{user_id}',[ReserveSortController::class,'show']);
 Route::get('/reservesort',[ReserveSortController::class,'sort']);
+/**_______________________________expired_reservation________________ */
+Route::get('/expired',[ExpiredReservationController::class,'index']);
 /**________________________________location__________________________ */
 Route::apiResource('/location',LocationController::class);
 /**___________________________________genre__________________________ */
