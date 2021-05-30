@@ -76,7 +76,7 @@ class RestaurantController extends Controller
                 $item->course_menu = CourseMenu::where('restaurant_id', $item->id)->first();
             }
             if(Evaluation::where('restaurant_id',$item->id)){
-                $item->Evaluation::where('restaurant_id', $item->id)->first();
+                $item->review = Evaluation::where('restaurant_id', $item->id)->first();
             }
             $evaluations = Evaluation::where('restaurant_id', $item->id)->get();
             if (empty($evaluation)) {
