@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CourseMenu;
 use App\Models\Evaluation;
 use App\Models\Favorite;
 use App\Models\Genre;
@@ -71,6 +72,9 @@ class RestaurantController extends Controller
             Location::where('id', $item->location_id)->first()->name;
             $item->genre =
             Genre::where('id', $item->genre_id)->first()->name;
+            if(CourseMenu::where('restaurant_id', $item->id)){
+                $item->course_menu = CourseMenu::where('restaurant_id', $item->id)->first();
+            }
             $evaluations = Evaluation::where('restaurant_id', $item->id)->get();
             if (empty($evaluation)) {
                 $sum = 0;
