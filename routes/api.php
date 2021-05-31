@@ -18,8 +18,7 @@ use App\Http\Controllers\mapController;
 use App\Http\Controllers\ReserveController;
 use App\Http\Controllers\ReserveSortController;
 use App\Http\Controllers\ExpiredReservationController;
-
-
+use App\Http\Controllers\SearchController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,6 +38,8 @@ Route::post('/logout', [LogoutController::class, 'logout']);
 Route::apiResource('/user', UserController::class);
 /**______________________________restaurant______________________ */
 Route::apiResource('/restaurant',RestaurantController::class);
+/**______________________________search_______________________ */
+Route::get('/search',[SearchController::class,'search']);
 /**___________________________________favorite____________________ */
 Route::get('/favorite/{user_id}',[FavoriteController::class,'show']);
 Route::get('/favorite',[FavoriteController::class,'sort']);
