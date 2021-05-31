@@ -103,8 +103,7 @@ class RestaurantController extends Controller
     public function update(Restaurant $restaurant,Request $request){
         $item = Restaurant::where('id',$restaurant->id)->first();
         $now = Carbon::now()->format('Y/m/d H:i');
-        $item->lat = $request->lat;
-        $item->ing = $request->ing;
+        $item->kana_name = $request->kana_name;
         $item->updated_at = $now;
         $item->save();
         return response()->json([
