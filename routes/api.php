@@ -46,8 +46,8 @@ Route::get('/favorite',[FavoriteController::class,'sort']);
 Route::post('/favorite',[FavoriteController::class,'store']);
 /**________________________________reservation_______________________ */
 Route::apiResource('/reservation', ReserveController::class);
-Route::get('/reservesort/{user_id}',[ReserveSortController::class,'show']);
-Route::get('/reservesort',[ReserveSortController::class,'sort']);
+Route::get('/reservationsort/{user_id}',[ReserveSortController::class,'userSort']);
+Route::get('/reservationsort',[ReserveSortController::class,'restaurantSort']);
 /**_______________________________expired_reservation________________ */
 Route::get('/expired',[ExpiredReservationController::class,'index']);
 /**________________________________location__________________________ */

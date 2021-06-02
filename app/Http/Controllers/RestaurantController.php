@@ -9,29 +9,20 @@ use App\Models\Genre;
 use App\Models\Location;
 use App\Models\Map;
 use App\Models\Restaurant;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class RestaurantController extends Controller
 {
     public function index()
     {
-        $items = Restaurant::all();
+        $items = DB::select(DB::raw(file_get_contents(database_path('Sql/restaurant/index.sql'))));
         foreach($items as $item){
-            $item->location =
-            Location::where('id', $item->location_id)->first()->name;
-            $item->genre =
-            Genre::where('id', $item->genre_id)->first()->name;
             $evaluations = Evaluation::where('restaurant_id',$item->id)->get();
-            if(!$evaluations->isEmpty()){
-                $sum = 0;
-                $count = 0;
-                foreach($evaluations as $evaluation){
-                    $sum += $evaluation->rating;
-                    $count += 1;
-                    $item->rating = $sum/$count;
-                }
-            } else{
+            $item->rating = $evaluations->avg('rating');
+            if($item->rating == null){
                 $item->rating = 0;
             }
         }
@@ -66,39 +57,21 @@ class RestaurantController extends Controller
     }
     public function show(Restaurant $restaurant)
     {
-        $item = Restaurant::where('id', $restaurant->id)->first();
-        if ($item) {
-            $item->location =
-            Location::where('id', $item->location_id)->first()->name;
-            $item->genre =
-            Genre::where('id', $item->genre_id)->first()->name;
-            if(CourseMenu::where('restaurant_id', $item->id)){
-                $item->course_menu = CourseMenu::where('restaurant_id', $item->id)->first();
-            }
-            if(Evaluation::where('restaurant_id',$item->id)){
-                $item->review = Evaluation::where('restaurant_id', $item->id)->get();
-            }
-            $evaluations = Evaluation::where('restaurant_id', $item->id)->get();
-            if (empty($evaluation)) {
-                $sum = 0;
-                $count = 0;
-                foreach ($evaluations as $evaluation) {
-                    $sum += $evaluation->rating;
-                    $count += 1;
-                    $item->rating = $sum / $count;
-                }
-            } else {
-                $item->rating = 0;
-            }
-            return response()->json([
-                'data' => $item,
-                'message' => 'Request is approved'
-            ], 200);
-        } else {
-            return response()->json([
-                'message' => 'Not found'
-            ], 404);
+        $items = DB::select(DB::raw(file_get_contents(database_path('Sql/restaurant/show.sql'))."{$restaurant->id};"));
+        $item = $items[0];
+        $item->course_menu = CourseMenu::where('restaurant_id',$restaurant->id)->first();
+        $evaluations = Evaluation::where('restaurant_id', $restaurant->id)->get();
+        foreach($evaluations as $evaluation){
+            $evaluation->user_name = User::where('id',$evaluation->user_id)->first()->name;
         }
+        $item->review = $evaluations;
+        $item->rating = $evaluations->avg('rating');
+        if ($item->rating == null) {
+            $item->rating = 0;
+        }
+        return response()->json([
+            'data' => $item,
+        ]);
     }
     public function update(Restaurant $restaurant,Request $request){
         $item = Restaurant::where('id',$restaurant->id)->first();

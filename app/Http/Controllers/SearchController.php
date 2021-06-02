@@ -30,15 +30,8 @@ class SearchController extends Controller
             $item->genre =
                 Genre::where('id', $item->genre_id)->first()->name;
             $evaluations = Evaluation::where('restaurant_id', $item->id)->get();
-            if (!$evaluations->isEmpty()) {
-                $sum = 0;
-                $count = 0;
-                foreach ($evaluations as $evaluation) {
-                    $sum += $evaluation->rating;
-                    $count += 1;
-                    $item->rating = $sum / $count;
-                }
-            } else {
+            $item->rating = $evaluations->avg('rating');
+            if($item->rating==null){
                 $item->rating = 0;
             }
         }

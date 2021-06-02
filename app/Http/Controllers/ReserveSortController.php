@@ -10,11 +10,10 @@ use Illuminate\Support\Facades\DB;
 
 class ReserveSortController extends Controller
 {   
-    public function show($user_id){
-        $items = Reservation::where('user_id', $user_id)->get();
-        if (!$items->isEmpty()) {
+    public function userSort($user_id){
+        $items = DB::select(DB::raw(file_get_contents(database_path('Sql/reservation/userSort.sql'))."{$user_id};"));
+        if ($items) {
             $now = Carbon::now()->format('Y-m-d');
-            $a = 'false';
             foreach($items as $item){
                 if($item->date<$now){
                     $param = [
@@ -27,12 +26,10 @@ class ReserveSortController extends Controller
                     DB::table('expired_reservations')->insert($param);
                     $item->delete();
                 }
-                $item->restaurant_name = Restaurant::where('id',$item->restaurant_id)->first()->name;
                 $item->showCancel = false;
             }
             return response()->json([
-                'data' => $items,
-                'a' => $a
+                'data' => $items
             ]);
         } else {
             return response()->json([
@@ -40,7 +37,7 @@ class ReserveSortController extends Controller
             ]);
         }
     }
-    public function sort(Request $request)
+    public function restaurantSort(Request $request)
     {
         $query = Reservation::query();
         $query->where('user_id', $request->user_id);

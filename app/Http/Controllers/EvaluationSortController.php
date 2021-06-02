@@ -6,15 +6,13 @@ use App\Models\Evaluation;
 use App\Models\Restaurant;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class EvaluationSortController extends Controller
 {
     public function restaurantSort($restaurant_id){
-        $items = Evaluation::where('restaurant_id',$restaurant_id)->get();
+        $items = DB::select(DB::raw(file_get_contents(database_path('Sql/evaluation/restaurantSort.sql'))."{$restaurant_id};"));
         if($items){
-            foreach($items as $item){
-                $item->user_name = User::where('id',$item->user_id)->first()->name;
-            }
             return response()->json([
                 'data' => $items
             ]);
@@ -25,11 +23,9 @@ class EvaluationSortController extends Controller
         }
     }
     public function userSort(Request $request){
-        $items = Evaluation::where('user_id', $request->user_id)->get();
-        if (!$items->isEmpty()) {
+        $items = DB::select(DB::raw(file_get_contents(database_path('Sql/evaluation/userSort.sql'))."{$request->user_id}"));
+        if ($items) {
             foreach($items as $item){
-                $item->user_name = User::where('id',$item->user_id)->first()->name;
-                $item->restaurant_name = Restaurant::where('id',$item->restaurant_id)->first()->name;
                 $item->showEdit = false;
                 $item->showVerification = false;
             }
