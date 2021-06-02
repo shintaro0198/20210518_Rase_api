@@ -24,12 +24,14 @@ class ReserveSortController extends Controller
                         'updated_at' => $now
                     ];
                     DB::table('expired_reservations')->insert($param);
-                    $item->delete();
+                    DB::table('reservations')->where('id',$item->id)->delete();
                 }
                 $item->showCancel = false;
             }
+            $reloadedItems =
+            DB::select(DB::raw(file_get_contents(database_path('Sql/reservation/userSort.sql')) . "{$user_id};"));
             return response()->json([
-                'data' => $items
+                'data' => $reloadedItems
             ]);
         } else {
             return response()->json([
